@@ -8,4 +8,10 @@
 {{ config(materialized='table') }}
 
 
-select * from public.actor
+select     
+	actor_id ,
+    first_name ,
+    last_name ,
+    last_update 
+from 
+  {{ var('tables.actor_tbl') }}

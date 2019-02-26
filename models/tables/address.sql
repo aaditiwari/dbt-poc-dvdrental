@@ -8,4 +8,14 @@
 {{ config(materialized='table') }}
 
 
-select * from public.address
+select 
+    address_id ,
+    address ,
+    address2 ,
+    district ,
+    city_id ,
+    postal_code ,
+    phone ,
+    last_update 
+from 
+  {{ var('tables.address_tbl') }}	

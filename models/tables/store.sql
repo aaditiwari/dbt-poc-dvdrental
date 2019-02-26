@@ -8,4 +8,10 @@
 {{ config(materialized='table') }}
 
 
-select * from public.store
+select 
+    store_id ,
+    manager_staff_id ,
+    address_id ,
+    last_update 
+from 
+  {{ var('tables.store_tbl') }}	

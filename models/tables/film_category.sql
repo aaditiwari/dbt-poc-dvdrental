@@ -8,4 +8,9 @@
 {{ config(materialized='table') }}
 
 
-select * from public.film_category
+select 
+    film_id ,
+    category_id ,
+    last_update 
+from 
+  {{ var('tables.film_category_tbl') }}	

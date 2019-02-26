@@ -8,4 +8,9 @@
 {{ config(materialized='table') }}
 
 
-select * from public.country
+select 
+    country_id ,
+    country ,
+    last_update 
+from 
+  {{ var('tables.country_tbl') }}	

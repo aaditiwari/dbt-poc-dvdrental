@@ -8,4 +8,10 @@
 {{ config(materialized='table') }}
 
 
-select * from public.city
+select 
+    city_id ,
+    city ,
+    country_id ,
+    last_update 
+from 
+	{{ var('tables.city_tbl') }}	

@@ -8,4 +8,13 @@
 {{ config(materialized='table') }}
 
 
-select * from public.rental
+select 
+    rental_id ,
+    rental_date ,
+    inventory_id ,
+    customer_id ,
+    return_date ,
+    staff_id ,
+    last_update 
+from 
+  {{ var('tables.rental_tbl') }}	

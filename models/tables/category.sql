@@ -8,4 +8,9 @@
 {{ config(materialized='table') }}
 
 
-select * from public.category
+select 
+    category_id ,
+    name ,
+    last_update 
+from 
+	{{ var('tables.category_tbl') }}	

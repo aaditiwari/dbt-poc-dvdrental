@@ -8,4 +8,16 @@
 {{ config(materialized='table') }}
 
 
-select * from public.customer
+select 
+    customer_id ,
+    store_id ,
+    first_name ,
+    last_name ,
+    email ,
+    address_id ,
+    activebool ,
+    create_date ,
+    last_update ,
+    active 
+from 
+  {{ var('tables.customer_tbl') }}	

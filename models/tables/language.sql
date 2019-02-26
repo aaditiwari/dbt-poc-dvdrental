@@ -8,4 +8,9 @@
 {{ config(materialized='table') }}
 
 
-select * from public.language
+select 
+    language_id ,
+    name ,
+    last_update 
+from 
+  {{ var('tables.language_tbl') }}	
