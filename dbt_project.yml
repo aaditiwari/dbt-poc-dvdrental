@@ -1,0 +1,48 @@
+
+name: 'dvdrental_poc'
+version: '1.0'
+
+profile: 'dvdrental'
+
+source-paths: ["models"]
+target-path: "target"
+clean-targets: ["target"]
+test-paths: ["test"]
+analysis-paths: ["analysis"]
+
+models:
+    enabled: true        
+    materialized: view  
+
+    # pre- and post- hooks can be defined anywhere within the model hierarchy.
+    # when defined at the root level (as they are here), they apply to all models
+    # in all packages. These hooks are compiled into the model SQL and run either
+    # before or after the model is materializated.
+    pre-hook:
+        - "insert into audit (model, state, time) values ('{{this.name}}', 'start', current_timestamp)"
+
+    post-hook:
+        - "grant select on {{this}} to postgres"
+        - "insert into audit (model, state, time) values ('{{this.name}}', 'end', current_timestamp)"
+    
+    vars:
+      "tables.actor_tbl"            : "public.actor"        
+      "tables.address_tbl"          : "public.address"        
+      "tables.category_tbl"         : "public.category"          
+      "tables.city_tbl"             : "public.city"           
+      "tables.country_tbl"          : "public.country"          
+      "tables.customer_tbl"         : "public.customer"       
+      "tables.film_tbl"             : "public.film"             
+      "tables.film_actor_tbl"       : "public.film_actor"               
+      "tables.film_category_tbl"    : "public.film_category"           
+      "tables.inventory_tbl"        : "public.inventory"              
+      "tables.language_tbl"         : "public.language"             
+      "tables.payment_tbl"          : "public.payment"               
+      "tables.rental_tbl"           : "public.rental"             
+      "tables.staff_tbl"            : "public.staff"             
+      "tables.store_tbl"            : "public.store"             
+      
+# Like the pre- and post- hooks above, the on-run-start and on-run-end configs
+# make it possible to run SQL at the very beginning, and very end of a dbt run.
+on-run-start:
+    - "create table if not exists audit (model text, state text, time timestamp)"      

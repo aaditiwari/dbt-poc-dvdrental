@@ -1,0 +1,23 @@
+config:
+    send_anonymous_usage_stats: True
+    use_colors: True
+
+dvdrental:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      user: postgres
+      pass: *****
+      port: 5432
+      dbname: dvdrental
+      schema: phpoc
+      threads: 1         
+
+# You can switch between profiles and targets on the command line. All of the
+# following are valid ways to invoke dbt run/test/compile/etc
+#
+# $ dbt run --profile propertyhub
+# $ dbt run --profile propertyhub --target dev
+# $ dbt run --profile propertyhub --target prod
